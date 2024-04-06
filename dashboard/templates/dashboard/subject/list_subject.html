@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<a href="{% url 'dashboard:create_subject' %}" class="py-1 px-2 rounded-xl bg-blue-500 text-white">Create Subject</a>
+<h1 class="text-2xl font-bold mb-4">Subjects</h1>
+    <hr class="border-b-2 border-blue-500">
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="text-left py-2 px-4">#ID</th>
+            <th class="text-left py-2 px-4">Subject Name</th>
+            <th class="text-left py-2 px-4">No of Questions</th>
+            
+            <th class="text-left py-2 px-4">Actions</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through your questions and answer options here -->
+         {% for subject in subjects %}
+
+
+         <tr>
+          <td class="border py-2 px-4">{{subject.id}}</td>
+            <td class="border py-2 px-4">{{subject.name}}</td>
+            <td class="border py-2 px-4">{{subject.questions.count}}</td>
+            
+            <td class="border py-2 px-4">
+
+
+
+            </td>
+          </tr>
+
+         {% endfor %}
+          <!-- Repeat rows as needed with actual data -->
+        </tbody>
+      </table>
+    </div>
+{% endblock content %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1 class="text-2xl font-bold mb-4">Questions in the test # {{test.title}}</h1>
+    <hr class="border-b-2 border-blue-500">
+    <div class="overflow-x-auto">
+      <table class="min-w-full bg-white border border-gray-300">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="text-left py-2 px-4">#ID</th>
+            <th class="text-left py-2 px-4">Question</th>
+            <th class="text-left py-2 px-4">Options</th>
+            <th class="text-left py-2 px-4">Category</th>
+            <th class="text-left py-2 px-4">Subject</th>
+            <th class="text-left py-2 px-4">Actions</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Loop through your questions and answer options here -->
+         {% for question in questions %}
+
+
+         <tr>
+          <td class="border py-2 px-4">{{question.id}}</td>
+            <td class="border py-2 px-4">{{question}}</td>
+            <td class="border py-2 px-4">
+                <ul>
+              {% for answer in question.answers.all %}
+                <li> {% if answer.is_right %} ✅ {% else %} 𐄂 {% endif %}{{answer}}</li>
+              {% endfor %}
+            </ul>
+            <br>
+            <a href="{% url 'dashboard:manage_option' question.id %}" class="mt-2 px-4 py-2 bg-orange-400 text-white rounded-xl"> <i class="fas fa-cogs "></i> Manage Option</a>
+            </td>
+            <td class="border py-2 px-4">{{question.category}}</td>
+            <td class="border py-2 px-4">{{question.subject}}</td>
+            <td class="border py-2 px-4">
+
+              <div>
+                <p class="font-light text-xs">Created : {{question.created}}</p>
+                <hr class="border-b-2 border-blue-500">
+                <p class="font-bold text-xs">Updated: {{question.updated}}</p>
+                <br>
+                <a href="{% url 'dashboard:edit_question' question.id %}" class="mt-2 px-4 py-2 bg-yellow-500 text-white rounded-xl"> <i class="fas fa-pencil-alt"></i>  Edit Question</a>
+              
+              </div>
+            </td>
+          </tr>
+
+         {% endfor %}
+          <!-- Repeat rows as needed with actual data -->
+        </tbody>
+      </table>
+    </div>
+{% endblock content %}

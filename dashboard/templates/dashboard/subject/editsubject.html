@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
+{% block title %}
+Edit Subject
+{% endblock title %}
+
+{% block content %}
+<div>
+    <h1 class="text-2xl font-bold mb-1">Edit Subject </h1>
+    <hr class="border-b-2 border-blue-500">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{form | crispy}}
+      <button type="submit" class="py-2 px-4 bg-yellow-400 text-white rounded-xl">Edit Subject</button>
+    </form>
+  </div>
+{% endblock content %}
