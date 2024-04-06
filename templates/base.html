@@ -1,0 +1,130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} AI Quiz App {%endblock title %}</title>
+    {% include  'head/css.html' %}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <!-- <link rel="stylesheet" href="{% static 'plugins/toastr/toastr.min.css' %}"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  
+
+</head>
+<body class="font-poppins">
+
+
+
+    <div class="flex  bg-gray-200">
+        <!-- Sidebar -->
+        <aside class="bg-gray-800 text-gray-100 w-64 flex flex-col justify-between">
+          <!-- Sidebar header/logo -->
+          <div class="flex items-center justify-start h-16">
+            <!-- <img src="{% static 'images/user.svg' %}" alt="Logo" class="text-white h-10 w-auto"> -->
+           
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            <p class="text-white text-md"> <strong>Welcome</strong>, <br> {% if not request.user.get_full_name %} {{request.user}} {% else %} {{request.user.get_full_name}} {%endif%}</p>
+              
+        
+          </div>
+          
+          <!-- Sidebar navigation -->
+          <nav class="flex-1">
+            <ul>
+              <!-- Dashboard -->
+              <li class="flex items-center py-2 px-4 hover:bg-gray-700">
+                <i class="fas fa-tachometer-alt mr-2"></i>
+                <a href="/" class="hover:text-white">Dashboard</a>
+              </li>
+              
+       {% if request.user.is_staff %}
+
+              <!-- Question -->
+              <li class="flex items-center py-2 px-4 hover:bg-gray-700">
+                <i class="fas fa-question-circle mr-2"></i>
+                <a href="{% url 'dashboard:questionpool' %}" class="hover:text-white">Question Pool</a>
+              </li>
+
+              <!-- Test -->
+              <li class="flex items-center py-2 px-4 hover:bg-gray-700">
+                <i class="fas fa-pencil-alt mr-2"></i>
+                <a href="{% url 'dashboard:list_test' %}" class="hover:text-white">Manage Test</a>
+              </li>
+              <li class="flex items-center py-2 px-4 hover:bg-gray-700">
+                <i class="fas fa-pencil-alt mr-2"></i>
+                <a href="{% url 'dashboard:list_subject' %}" class="hover:text-white">Manage Subject</a>
+              </li>
+              <li class="flex items-center py-2 px-4 hover:bg-gray-700">
+                <i class="fas fa-users mr-2"></i>
+                <a href="{% url 'dashboard:view_users' %}" class="hover:text-white">Users</a>
+              </li>
+
+       {% endif %}
+              
+
+                <!-- Test -->
+                <li class="flex items-center py-2 px-4 hover:bg-gray-700">
+                  <i class="fas fa-pencil-alt mr-2"></i>
+                  <a href="{% url 'dashboard:take_test_index' %}" class="hover:text-white">Take a Test</a>
+                </li>
+              <!-- Result -->
+              <li class="flex items-center py-2 px-4 hover:bg-gray-700">
+                <i class="fas fa-poll mr-2"></i>
+                <a href="{% url 'dashboard:test_attempts'%}" class="hover:text-white">Result and Score</a>
+              </li>
+              
+              <!-- Logout -->
+              <li class="flex items-center py-2 px-4 hover:bg-gray-700">
+                <i class="fas fa-sign-out-alt mr-2"></i>
+                <a href="{% url 'dashboard:logout' %}" class="hover:text-white">Logout</a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+    
+        <!-- Main Content -->
+        <main class="flex-1 p-4">
+          <!-- Your main content here -->
+          <div class="min-h-screen">
+            {% block content %} 
+          
+            {% endblock content %}
+          </div>
+          
+
+        </main>
+      </div>
+    
+    
+      
+<!-- <Script>
+    document.getElementById('toggle-btn').addEventListener('click',()=>{
+        document.getElementById('mobile-nav').classList.toggle('hidden')
+       
+    })
+</Script> -->
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script src="{% static 'plugins/toastr/toastr.min.js' %}"></script> -->
+<script src="{% static 'js/main.js' %}"></script>
+{% block javascript %}
+
+{% endblock javascript %}
+
+</body>
+</html>

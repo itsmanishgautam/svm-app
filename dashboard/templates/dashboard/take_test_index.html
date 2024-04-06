@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
+{% block title %}
+List Tests
+{% endblock title %}
+
+
+{% block content %}
+
+
+<h1 class="text-2xl font-bold mb-4">Tests Available</h1>
+  <hr class="border-b-2 border-blue-500">
+
+
+
+ 
+
+  {% for test in tests %}
+
+  <div class="my-2 bg-white shadow-md rounded px-4 py-3 flex space-x-4 justify-between">
+    <div>
+      <h2 class="text-lg font-semibold mb-2">#{{test.id}} <strong>{{test.title}}</strong></h2>
+    <p class="text-sm text-gray-600 mb-4">{{test.description}}</p>
+    <div class="flex items-center mb-2">
+      <i class="fas fa-question-circle text-gray-500 mr-2"></i>
+      <span class="text-sm text-gray-600">Number of Questions: </span> <span class="text-lg font-bold text-gray-800">{{test.questions.count}}</span>
+    </div>
+    <!-- <div class="flex items-center mb-2">
+      <i class="fas fa-history text-gray-500 mr-2"></i>
+      <span class="text-sm text-gray-600">Number of Attempts: 3</span>
+    </div> -->
+    <div class="flex items-center">
+      <i class="fas fa-undo-alt text-gray-500 mr-2"></i>
+      <span class="text-sm text-gray-600">
+        Your Attempts :
+           
+      </span>
+      <span class="font-bold text-xl text-gray-800"> {{test.num_attempts}}</span>
+    </div>
+    <div class="flex items-center">
+      <i class="fas fa-poll text-blue-500 mr-2"></i>
+      <span class="text-sm text-blue-600">
+       Max Score :
+           
+      </span>
+      <span class="font-bold text-xl text-blue-800"> {{test.max_score}}</span>
+    </div>
+    </div>
+    <div class="flex items-center mt-2">
+      <a class="bg-blue-500 text-white font-semibold px-4 py-2 rounded mr-2" href="{% url 'dashboard:test_attempts_by_test' test.id %}">  <i class="fas fa-poll-h mr-2"></i>View Results</button>
+      <a class="bg-green-500 text-white font-semibold px-4 py-2 rounded" href="{% url 'dashboard:taketest' test.id %}"><i class="fas fa-pencil-alt mr-2"></i>Take Test</a>
+    </div>
+  </div>
+
+{% endfor %}
+
+
+
+
+
+
+{% comment %}
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="text-left py-2 px-4">S.N</th>
+          <th class="text-left py-2 px-4">Test Name</th>
+          <th class="text-left py-2 px-4">Description</th>
+          <th class="text-left py-2 px-4">Created</th>
+          <th class="text-left py-2 px-4">Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through your questions and answer options here -->
+       {% for test in tests %}
+
+
+       <tr>
+          <td class="border py-2 px-4">{{test.id}}</td>
+          <td class="border py-2 px-4">
+            {{test.title}}
+          </td>
+          <td class="border py-2 px-4">{{test.description}}</td>
+          <td class="border py-2 px-4">
+            {{test.created}}
+
+            
+          </td>
+          <td class="border py-2 px-4" >
+            <a href="{% url 'dashboard:taketest' test.id %}" class="px-4 py-2 rounded-xl bg-green-500 text-white ">Take Test ➡</a>
+          </td>
+        </tr>
+
+       {% endfor %}
+        <!-- Repeat rows as needed with actual data -->
+      </tbody>
+    </table>
+  </div>
+
+
+  {% endcomment %}
+{% endblock content %}
+

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<h1 class="text-2xl font-bold mb-1">Result </h1>
+    <hr class="border-b-2 border-blue-500">
+
+
+
+    <br>
+    {% comment %}
+    {% for test_result in test_attempts %}
+    <div class="border rounded-lg p-4 my-4">
+        <h2 class="text-xl font-bold">{{ test_result.test.title }}</h2>
+        <p>Score: {{ test_result.score }}</p>
+        <p>Right Answers: {{ test_result.total_right }}</p>
+        <p>Wrong Answers: {{ test_result.total_wrong }}</p>
+        <p>Time Taken: {{ test_result.timetaken }} seconds</p>
+        <div class="flex items-center mt-2">
+            <i class="fas fa-check text-green-500 mr-2"></i>
+            <p class="text-sm">Correct</p>
+            <i class="fas fa-times text-red-500 ml-4 mr-2"></i>
+            <p class="text-sm">Incorrect</p>
+            <i class="fas fa-stopwatch text-blue-500 ml-4 mr-2"></i>
+            <p class="text-sm">Time</p>
+        </div>
+    </div>
+{% endfor %}
+
+{% endcomment %}
+    <br>
+{% for attempt in test_attempts %}
+
+
+    <div class="border-b border-gray-300 pb-4 mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="text-base font-semibold">Attempt for ->[#{{attempt.test.id}}] {{attempt.test}} </h3> 
+          <span class="text-gray-500"><i class="fas fa-clock mr-1"></i>Time taken : {{attempt.timetaken}} seconds</span>
+        </div>
+        <div class="flex items-center justify-between mb-2">
+         {% if attempt.completed %}
+         
+
+         <span class="text-green-500"><i class="fas fa-check-circle mr-1"></i> Right: {{attempt.total_right}}</span>
+         <span class="text-red-500"><i class="fas fa-times-circle mr-1"></i> Wrong: {{attempt.total_wrong}}</span>
+         {% else %}
+         <span class="text-green-500"><i class="fas fa-times-circle mr-1"></i>Attempt Incomplete, Please Continue </span>
+         <a href="{% url 'dashboard:taketest' attempt.test.id %}" class="py-2 px-4 bg-green-500 text-white rounded-xl"> <i class="fas fa-pencil-alt mr-2"></i> Continue Attempt</a>
+         {% endif %}
+          <span>Total Questions Answered: {{attempt.total_questions}}</span>
+        </div>
+        <div class="text-blue-600 text-md font-bold">Score: {{attempt.score}}%</div>
+      </div>
+
+{% endfor %}
+
+
+{% endblock content %}

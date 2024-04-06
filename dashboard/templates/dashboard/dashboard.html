@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="  justify-center bg-gray-200">
+
+  <h1 class="text-2xl font-bold mb-1">Dashboard</h1>
+  <hr class="border-b-2 border-blue-500">
+<div class="mt-2">
+
+  {% if request.user.is_staff %}
+
+
+  <div class="mt-2 bg-white rounded-lg shadow-md p-6 flex flex-row space-x-2 justify-between">
+    <div class="w-2/12">
+
+      <h2 class="text-xl font-semibold mb-4 w-2/12">Question Statistics</h2>
+  
+    </div>
+    <div class="flex w-10/12 justify-between">
+      <div class="flex items-center mb-4 w-1/3">
+        <div class="mr-4">
+          <i class="fas fa-question-circle text-blue-500 text-3xl"></i>
+        </div>
+        <div>
+          <p class="text-gray-600">Total Questions</p>
+          <p class="text-3xl font-semibold">{{questions_count}}</p>
+        </div>
+      </div>
+    
+      <div class="flex items-center mb-4 w-1/3">
+        <div class="mr-4">
+          <i class="fas fa-hourglass-start text-green-500 text-3xl"></i>
+        </div>
+        <div>
+          <p class="text-gray-600">Easy Questions</p>
+          <p class="text-3xl font-semibold">{{easy_count}}</p>
+        </div>
+      </div>
+    
+      <div class="flex items-center w-1/3">
+        <div class="mr-4">
+          <i class="fas fa-hourglass-end text-red-500 text-3xl"></i>
+        </div>
+        <div>
+          <p class="text-gray-600">Hard Questions</p>
+          <p class="text-3xl font-semibold">{{hard_count}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-2 bg-white rounded-lg shadow-md p-6 flex flex-row space-x-2 justify-between">
+   <div class="w-2/12">
+    <h2 class="text-xl font-semibold mb-4 w-2/12">Exam Statistics</h2>
+  
+   </div>
+<div class="flex w-10/12 justify-between">
+  <div class="flex items-center mb-4 w-1/3">
+    <div class="mr-4">
+      <i class="fas fa-question-circle text-blue-500 text-3xl"></i>
+    </div>
+    <div>
+      <p class="text-gray-600">Total Test Attempts</p>
+      <p class="text-3xl font-semibold">{{user_test_attempts_count}}</p>
+    </div>
+  </div>
+
+  <div class="flex items-center mb-4 w-1/3">
+    <div class="mr-4">
+      <i class="fas fa-hourglass-start text-green-500 text-3xl"></i>
+    </div>
+    <div>
+      <p class="text-gray-600"> Completed Attempts</p>
+      <p class="text-3xl font-semibold">{{user_completed_test_count}}</p>
+    </div>
+  </div>
+
+  <div class="flex items-center w-1/3">
+    <div class="mr-4">
+      <i class="fas fa-hourglass-end text-red-500 text-3xl"></i>
+    </div>
+    <div>
+      <p class="text-gray-600">Incomplete Attempts</p>
+      <p class="text-3xl font-semibold">{{user_incomplete_test_count}}</p>
+    </div>
+  </div>
+</div>
+  </div>
+
+
+
+
+   <!-- Your Statistics -->
+  <div class="mt-2 bg-blue-200 rounded-lg shadow-md p-6 flex flex-row space-x-2 justify-between">
+    <div class="w-2/12">
+      <h2 class="text-xl font-semibold mb-4 w-2/12">Your Exam Statistics</h2>
+  
+    </div>
+    <div class="flex justify-betweeen w-10/12">
+      <div class="flex items-center mb-4 w-1/3">
+        <div class="mr-4">
+          <i class="fas fa-question-circle text-blue-500 text-3xl"></i>
+        </div>
+        <div>
+          <p class="text-gray-600">Test Attempts</p>
+          <p class="text-3xl font-semibold">{{attempt_count}}</p>
+        </div>
+      </div>
+   
+      <div class="flex items-center mb-4 w-1/3">
+        <div class="mr-4">
+          <i class="fas fa-hourglass-start text-green-500 text-3xl"></i>
+        </div>
+        <div>
+          <p class="text-gray-600"> Completed Attempts</p>
+          <p class="text-3xl font-semibold">{{completed_attempts}}</p>
+        </div>
+      </div>
+    
+      <div class="flex items-center w-1/3">
+        <div class="mr-4">
+          <i class="fas fa-hourglass-end text-red-500 text-3xl"></i>
+        </div>
+        <div>
+          <p class="text-gray-600">Incomplete Attempts</p>
+          <p class="text-3xl font-semibold">{{incomplete_attempts}}</p>
+        </div>
+      </div>
+    </div>
+   
+  </div>
+
+  {% else %}
+
+    <!-- Your Statistics -->
+    <div class="mt-2 bg-blue-200 rounded-lg shadow-md p-6 flex flex-row space-x-2 justify-between">
+      <div class="w-2/12">
+        <h2 class="text-xl font-semibold mb-4 w-2/12">Your Exam Statistics</h2>
+    
+      </div>
+      <div class="flex justify-betweeen w-10/12">
+        <div class="flex items-center mb-4 w-1/3">
+          <div class="mr-4">
+            <i class="fas fa-question-circle text-blue-500 text-3xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-600">Test Attempts</p>
+            <p class="text-3xl font-semibold">{{attempt_count}}</p>
+          </div>
+        </div>
+     
+        <div class="flex items-center mb-4 w-1/3">
+          <div class="mr-4">
+            <i class="fas fa-hourglass-start text-green-500 text-3xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-600"> Completed Attempts</p>
+            <p class="text-3xl font-semibold">{{completed_attempts}}</p>
+          </div>
+        </div>
+      
+        <div class="flex items-center w-1/3">
+          <div class="mr-4">
+            <i class="fas fa-hourglass-end text-red-500 text-3xl"></i>
+          </div>
+          <div>
+            <p class="text-gray-600">Incomplete Attempts</p>
+            <p class="text-3xl font-semibold">{{incomplete_attempts}}</p>
+          </div>
+        </div>
+      </div>
+     
+    </div>
+  {% endif %}
+  
+</div>
+
+  </div>
+
+{% endblock content %}

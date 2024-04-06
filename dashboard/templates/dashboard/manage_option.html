@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
+{% block title %}
+Add Option to {{question.question}}
+{% endblock title %}
+
+{% block content %}
+<div>
+    <h1 class="text-2xl font-bold mb-1">Add Option to ❓ {{question.question}}</h1>
+    <hr class="border-b-2 border-blue-500">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{form | crispy}}
+      <button type="submit" class="py-2 px-4 bg-green-500 text-white rounded-xl">Add Option</button>
+    </form>
+  </div>
+
+  <br>
+  <div class="w-full rounded-xl  ">
+    <h2 class="font-bold text-xl ">Options</h2>
+  {% for answer in question.answers.all %}
+                <li class="my-4  {% if answer.is_right %} bg-green-400 {% else %} bg-white {% endif %}{{answer}}  shadow-xl px-2 py-2 rounded-xl "> {% if answer.is_right %} ✅ {% else %} 𐄂 {% endif %}{{answer}} 
+                     <a href="{% url 'dashboard:edit_option' answer.id %}" class="px-4 py-2 rounded-xl text-sm bg-yellow-300 text-white"><i class="fas fa-pencil-alt"></i> Edit</a>  
+                     <a href="{% url 'dashboard:delete_option' answer.id %}" class="px-4 py-2 rounded-xl text-sm bg-red-500 text-white"><i class="fas fa-trash-alt"></i> Delete</a>
+                    </li>
+    {% endfor %}
+
+</div>
+{% endblock content %}

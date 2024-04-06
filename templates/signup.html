@@ -1,0 +1,106 @@
+{% extends 'skeleton_base.html'%}
+
+{% block title %}
+
+AI Quiz App - SignUp
+{% endblock title %}
+
+{% block content %}
+
+<div class="bg-gray-100 flex justify-center items-center min-h-screen">
+    <div class="max-w-md w-full bg-white p-6 rounded-lg shadow-md">
+      <h1 class="text-2xl font-semibold mb-4">SignUp</h1>
+      <form method="post">
+        {% csrf_token %}
+        <!-- <div class="mb-4">
+          <label for="phone" class="text-sm font-medium block mb-1">Username</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                  </svg>
+                  
+            </span>
+            <input id="username" type="username" name="username" class=" pl-10 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Enter username">
+          </div>
+        </div> -->
+        <div class="mb-4 flex flex-row space-x-2">
+          <div>
+            <label for="first_name" class="text-sm font-medium block mb-1">First Name</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              
+                
+                  
+            </span>
+            <input required id="first_name" type="first_name" name="first_name" class=" pl-10 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="First Name">
+          </div>
+          </div>
+        <div>
+          <label for="last_name" class="text-sm font-medium block mb-1">Last Name</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              
+                
+                  
+            </span>
+            <input required id="last_name" type="last_name" name="last_name" class=" pl-10 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Last Name">
+          </div>
+        </div>
+        </div>
+        <div class="mb-4">
+          <label for="username" class="text-sm font-medium block mb-1">Username</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                  <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
+                </svg>
+                
+                  
+            </span>
+            <input required id="username" type="username" name="username" class=" pl-10 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="username">
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="password" class="text-sm font-medium block mb-1">Password</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                  </svg>
+                  
+            </span>
+            <input required id="password" type="password" name="password" class=" pl-10 w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" placeholder="Password">
+          </div>
+        </div>
+        
+
+        <div class="mb-4 ">
+            {% for message in messages %}
+            <div class="flex items-center  p-2 rounded-lg  bg-red-600">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                  </svg>
+                  <div class="ml-2 text-white" role="alert" > {{message}}</div>
+                  
+            </div>
+             {% endfor %}
+        </div>
+        <button class="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg">SignUp</button>
+        <a href="{% url 'dashboard:login' %}" class="text-md mt-2 mx-auto text-blue-500 text-center">Registered user? Login here !</a>
+      </form>
+    </div>
+
+
+
+
+
+</div>
+
+{% endblock %}

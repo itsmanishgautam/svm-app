@@ -1,0 +1,42 @@
+id,question,option1,option2,option3,option4,right_option
+1,"Django is the web framework of?",Java,Javascript,Python,C++,Python
+2,"Which programming language is used for building Android apps?",Java,Python,C,Swift,Java
+3,"What does CSS stand for?",Cascading Style Sheets,Computer Style Sheets,Colorful Style Sheets,Common Style Sheets,Cascading Style Sheets
+4,"What does HTML stand for?",Hyper Text Markup Language,Hyperlinks and Text Markup Language,Home Tool Markup Language,Hyper Tool Markup Language,Hyper Text Markup Language
+5,"What is the primary purpose of JavaScript?",Make web pages interactive,Styling web pages,Define the structure of web pages,Store data in web pages,Make web pages interactive
+6,"What does API stand for?",Application Programming Interface,Advanced Programming Interface,Application Programming Integration,Advanced Programming Integration,Application Programming Interface
+7,"What language does Node.js use?",JavaScript,Python,C#,Ruby,JavaScript
+8,"Which of these is a version control system?",Git,Java,CSS,Python,Git
+9,"Which programming language is not statically typed?",JavaScript,Java,C++,Swift,JavaScript
+10,"What is the purpose of SQL?",Database Query Language,Scripting Language,Programming Language,Markup Language,Database Query Language
+11,"Which of the following is a relational database management system?",MySQL,MongoDB,Redis,Elasticsearch,MySQL
+12,"What is the purpose of HTTP?",Hypertext Transfer Protocol,Home Tool Protocol,Hyperlink Transfer Protocol,Hypertext Tool Protocol,Hypertext Transfer Protocol
+13,"What does MVC stand for in web development?",Model View Controller,Model View Compiler,Model Visual Controller,Model Visual Compiler,Model View Controller
+14,"Which language is known as the 'language of the web'?",JavaScript,Java,Python,CSS,JavaScript
+15,"Which file format is used for web page markup?",HTML,JSON,XML,CSS,HTML
+16,"What does PHP stand for?",Hypertext Preprocessor,Personal Home Page,Preprocessed Hypertext,Private Home Page,Hypertext Preprocessor
+17,"Which of these is used for styling web pages?",CSS,JavaScript,HTML,PHP,CSS
+18,"What is the main purpose of a CDN (Content Delivery Network)?",Faster Content Delivery,Database Management,Server Hosting,Software Development,Faster Content Delivery
+19,"Which of the following is a front-end framework?",React,Node.js,Django,Flask,React
+20,"What is the primary purpose of a 'for' loop in programming?",Repeated Execution,Conditional Execution,Sequential Execution,Random Execution,Repeated Execution
+21,"What is the purpose of a 'try...catch' block in programming?",Error Handling,Conditional Execution,Looping Mechanism,Function Definition,Error Handling
+22,"What does IDE stand for in programming?",Integrated Development Environment,Integrated Design Environment,Interlinked Development Environment,Interface Design Environment,Integrated Development Environment
+23,"Which of these is a cloud computing service by Amazon?",AWS,Azure,GCP,DigitalOcean,AWS
+24,"What does OOP stand for in programming?",Object-Oriented Programming,Object-Oriented Protocol,Original Object Programming,Object-Oriented Process,Object-Oriented Programming
+25,"Which programming paradigm emphasizes 'objects'?",Object-Oriented Programming,Procedural Programming,Functional Programming,Structured Programming,Object-Oriented Programming
+26,"What does JSON stand for?",JavaScript Object Notation,JavaScript Object Network,JavaScript Object Namespace,Java Scripted Object Notation,JavaScript Object Notation
+27,"Which of these is a popular version control platform by Microsoft?",Azure DevOps,GitHub,Bitbucket,SVN,GitHub
+28,"Which of these is used to make a web page responsive?",Media Queries,HTML Tables,JavaScript Functions,Python Loops,Media Queries
+29,"What does SEO stand for in web development?",Search Engine Optimization,Site Engine Optimization,Structured Engine Organization,Site External Organization,Search Engine Optimization
+30,"Which of these is a commonly used programming language for data analysis?",Python,Java,JavaScript,C++,Python
+31,"What does URI stand for?",Uniform Resource Identifier,Universal Resource Identifier,Uniform Resource Indicator,Universal Resource Indicator,Uniform Resource Identifier
+32,"What does UX/UI design focus on?",User Experience/User Interface,Underlying XML,Unix/Xenon Integration,User Experience/Underlying Interface,User Experience/User Interface
+33,"Which of the following is a NoSQL database?",MongoDB,MySQL,PostgreSQL,SQLite,MongoDB
+34,"Which programming language was developed by Guido van Rossum?",Python,Java,C++,Ruby,Python
+35,"What is the purpose of a 'while' loop in programming?",Repeated Execution,Conditional Execution,Sequential Execution,Random Execution,Repeated Execution
+36,"Which of these is a server-side JavaScript runtime environment?",Node.js,React,Angular,Vue.js,Node.js
+37,"What is the purpose of a 'switch' statement in programming?",Conditional Control Flow,Looping Mechanism,Function Definition,Error Handling,Conditional Control Flow
+38,"What does DOM stand for in web development?",Document Object Model,Data Object Model,Design Object Model,Document Object Method,Document Object Model
+39,"Which of these is a popular CSS framework?",Bootstrap,Materialize,jQuery,Foundation,Bootstrap
+40,"What is the purpose of 'npm' in JavaScript development?",Node Package Manager,Network Package Manager,New Project Manager,Node Programming Manager,Node Package Manager
+41,"What is the purpose of a 'constructor' in object-oriented programming?",Initialize an Object,Destroy an Object,Update an Object,Display an Object,Initialize an Object

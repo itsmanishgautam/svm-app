@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load tailwind_filters %}
+{% block title %}
+List Tests
+{% endblock title %}
+{% block content %}
+
+
+
+
+<div>
+
+  
+
+
+    <h1 class="text-2xl font-bold mb-1">Add Test</h1>
+    <hr class="border-b-2 border-blue-500">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{form | crispy}}
+      <button type="submit" class="py-2 px-4 bg-green-500 text-white rounded-xl">Add Test</button>
+    </form>
+  </div>
+  <br>
+  <h1 class="text-2xl font-bold mb-4">Tests</h1>
+  <hr class="border-b-2 border-blue-500">
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="text-left py-2 px-4">S.N</th>
+          <th class="text-left py-2 px-4">Test Name</th>
+          <th class="text-left py-2 px-4">Description</th>
+          <th class="text-left py-2 px-4">NoQ</th>
+          <th class="text-left py-2 px-4">Status</th>
+
+          
+          <th class="text-left py-2 px-4">Created</th>
+          <th class="text-left py-2 px-4">Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Loop through your questions and answer options here -->
+       {% for test in tests %}
+
+
+       <tr>
+          <td class="border py-2 px-4">{{test.id}}</td>
+          <td class="border py-2 px-4">
+            {{test.title}}
+          </td>
+          <td class="border py-2 px-4">{{test.description}}</td>
+          <td class="border py-2 px-4">{{test.questions.count}}</td>
+          <td class="border py-2 px-4">
+            {% if test.status == 'DRAFT' %}
+            <span class="bg-blue-500 text-white px-2 py-1 rounded-xl text-xs">DRAFT</span>
+            {% else %}
+            <span class="bg-green-500 text-white px-2 py-1 rounded-xl text-xs">LIVE</span>
+            {% endif %}
+          </td>
+
+          <td class="border py-2 px-4">
+            {{test.created}}
+            
+          </td>
+
+          <td class="border py-2 px-4">
+            <a href="{% url 'dashboard:edit_test' test.id %}" class="px-4 py-2 text-white bg-yellow-300">Edit Test</a>
+            <a href="{% url 'dashboard:question_add' test.id %}" class="px-4 py-2 bg-green-500">Add Questions</a>
+            <a href="{% url 'dashboard:view_test_questions' test.id %}" class="px-4 py-2 bg-blue-500">View Questions</a>
+            </td>
+        </tr>
+
+       {% endfor %}
+        <!-- Repeat rows as needed with actual data -->
+      </tbody>
+    </table>
+  </div>
+
+{% endblock content %}
+
+
+

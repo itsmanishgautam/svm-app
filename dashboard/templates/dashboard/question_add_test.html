@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+{% load server_url %}
+
+
+{% block content %}
+
+<div id="app">
+   
+
+    <h1 class="text-xl font-bold">Upload CSV</h1>
+    <div><a class="py-1 px-2 rounded-xl text-white bg-blue-500 mb-2" href="{% url 'dashboard:download_csv' %}">Download Sample CSV</a></div>
+   <div class="flex md:flex-row ">
+
+    <div class="w-1/3  p-6 bg-white rounded-lg shadow-md">
+        <label for="fileInput" class="flex items-center justify-center mb-4 cursor-pointer">
+          <span class="mr-2">
+            <i class="fas fa-cloud-upload-alt"></i>
+          </span>
+          <span>Select a CSV File</span>
+        </label>
+        
+        <input
+          type="file"
+          id="fileInput"
+          class="hidden"
+          @change="handleFileUpload"
+        />
+        <div v-if="file">
+          <p class="mb-2">Selected File: [[ file.name ]]</p>
+          <button @click="uploadFile" class="bg-blue-500 text-white py-2 px-4 rounded-md">
+            Upload
+          </button>
+        </div>
+        <div v-if="uploadStatus" class="mt-4">
+          <p v-if="uploadStatus === 'success'" class="text-green-600">File uploaded successfully! <br> [[uploadMessage]] </p>
+          <p v-else-if="uploadStatus === 'error'" class="text-red-600">Error uploading file. Please try again.</p>
+        </div>
+        <div v-if="uploadProgress !== null" class="mt-4">
+          <p>Upload Progress:</p>
+          <div class="bg-gray-200 h-4 rounded-md">
+            <div :style="{ width: uploadProgress + '%' }" class="bg-blue-500 h-full rounded-md"></div>
+          </div>
+        </div>
+      </div>
+      <div class="mx-2 flex  ">
+        <div class="p-2 rounded-xl shadow-xl">
+            <p class="text-xl font-bold">Questions in The Test : {{question_count}} </p>
+        </div>
+        <div class="p-2 rounded-xl shadow-xl">
+            <p class="text-xl font-bold">Questions Selected : [[selectedQuestions.length]] </p>
+        </div>
+        <button @click="addSelected" class="px-4 py-2 bg-blue-500 text-white">Add Selected Questions</button>
+    </div>
+   </div>
+
+      <h1 class="text-xl font-bold">Search Question</h1>
+    <div class="relative">
+        <input
+          v-model="searchQuery"
+          @input="searchQuestions"
+          placeholder="Search questions..."
+          class="border border-gray-300 rounded px-4 py-2 w-full"
+        />
+        <div v-if="showDropdown" class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded">
+            <label class="flex items-center py-2 px-4 cursor-pointer my-2 bg-green-300 roundex-xl">
+                <input type="checkbox" v-model="selectAll" @change="handleSelectChange" :value="selectAll" class="mr-2">
+                <span>Select All</span>
+              </label>
+          <div v-for="question in filteredQuestions" :key="question.id">
+            <label class="flex items-center py-2 px-4 cursor-pointer">
+              <input type="checkbox" v-model="selectedQuestions" :value="question.id" class="mr-2">
+              <span>[[question.question]] </span> <span class="bg-green-300 text-white py-1 px-2 ml-2">[[question.subject?.name]]</span> <span class="bg-orange-300 text-white py-1 px-2 ml-2">[[question.category]]</span>
+            </label>
+          </div>
+        </div>
+        <div v-else class="absolute z-10 bg-white mt-1 w-full border border-gray-300 rounded">
+            <div class="mx-2 flex items-center justify-between my-2">
+                <p class="text-gray-600 flex items-center">
+                  <i class="fas fa-exclamation-circle text-red-500 mr-2"></i>
+                  No Questions Found!
+                </p>
+                <button class="py-2 px-4 bg-green-500 text-white" >
+                  <i class="fas fa-plus-circle mr-1"></i>Add Question
+                </button>
+              </div>
+            
+        </div>
+
+      </div>
+</div>
+
+{% endblock content %}
+
+{% block javascript %}
+
+
+<!-- Axios JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+
+<script>
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const mycsrftoken = getCookie('csrftoken');
+    
+    axios.defaults.baseURL = '{{request|server_protocol}}{{request.get_host}}';
+    axios.defaults.headers.common['X-Csrftoken'] = mycsrftoken;
+    
+    
+    axios.defaults.withCredentials= true;
+    
+    new Vue({
+      el: '#app',
+      delimiters: ['[[', ']]'],
+      data:{
+        selectAll:false,
+        file: null,
+      uploadStatus: null,
+      uploadProgress: null,
+        debounceDelay:500,
+        typingTimeout:null,
+        searchQuery: null,
+        showDropdown:true,
+        addEnable:false,
+        filteredQuestions:[
+            {'id':1,'question':"THIS IS A QUESTION"},
+          
+        ],
+        selectedQuestions:[],
+        testOver:false,
+        selectedOption:null,
+      
+          question: '',
+          attempt_id:'',
+          answers: [
+            {
+              answer: '',
+              is_right: false,
+            },
+          ],
+          start_time:null,
+          end_time:null,
+          uploadMessage:null
+        },
+    
+    
+    methods: {
+
+        addSelected(){
+            console.log(this.selectedQuestions)
+            if (this.selectedQuestions.length === 0){
+                toastr.warning('Please Select some questions to add!',"Questions not Selected")
+                return
+            }
+            this.addSelectedRequest();
+
+        },
+
+
+        handleSelectChange(){
+            if(this.selectAll){
+                this.selectedQuestions = []
+                this.selectedQuestions = this.filteredQuestions.map(question=>question.id)
+            }
+            else{
+                this.selectedQuestions = []
+                // console.log('uncheked')
+            }
+
+        },
+
+        async addSelectedRequest(){
+            const data = {
+                question_ids:this.selectedQuestions
+            }
+            axios.post('addquestiontotest/{{test_id}}/',data)
+            .then((response) => {
+                toastr.success(`${response.data['message']}`,`Success`)
+                window.location.reload()
+          
+        })
+        .catch((error) => {
+          console.log(error.response)
+        })
+
+        },
+        async searchQuestions(){
+            console.log('search key pressed')
+
+            clearTimeout(this.typingTimeout);
+      this.typingTimeout = setTimeout(async() => {
+        this.showDropdown = true;
+        // Perform search logic here (e.g., fetch data based on this.searchQuery)
+
+
+        if (this.searchQuery === null || this.searchQuery === undefined){
+                return 
+            }
+            else{
+                const params = {
+                    question:this.searchQuery
+                }
+              await  this.filterQuestion(params);
+            }
+      }, this.debounceDelay);
+            // if (this.searchQuery === null || this.searchQuery === undefined){
+            //     return 
+            // }
+            // else{
+            //     const params = {
+            //         question:this.searchQuery
+            //     }
+            //   await  this.filterQuestion(params);
+            // }
+        },
+        checkAnswer(){
+            console.log('test')
+            if(this.selectedOption === null || this.selectedOption === undefined){
+              toastr.warning("Please select a Option","Select Option");
+              return
+            }
+            this.submitQuestionAttempt()
+            this.selectedOption=null
+            this.getQuestion()
+            this.start_time = new Date().getTime();
+            
+        },
+
+        async submitQuestionAttempt(){
+
+          this.end_time = new Date().getTime();
+
+          // if (this.start_time !== 0 && this.end_time !== 0) {
+    const timeDifference = (this.end_time - this.start_time) / 1000; 
+  // }// Calculate time difference in seconds
+  // timeDifference = 0
+  console.log(timeDifference)
+
+
+          const data = {
+            test_attempt_id:this.attempt_id,
+            question:this.question.id,
+            answer:this.selectedOption,
+            timetaken:timeDifference,
+            right_attempt:this.checkRightAnswer()
+          }
+          console.log(data)
+
+
+          // Make API CALL
+         
+          axios
+        .post('submitquestionattempt/',data)
+        .then((response) => {
+          
+        })
+        .catch((error) => {
+          console.log(error.response)
+        })
+
+        this.start_time = null;
+        this.end_time = null;
+
+        },
+        checkRightAnswer() {
+
+          // Get the correct answer from the question data
+          const correctAnswer = this.question.answers.find(answer => answer.is_right);
+
+          // Check if the selected option matches the correct answer
+          return this.selectedOption === correctAnswer.id;
+        },
+    async getQuestion() {
+    
+      const response = await axios.get('question/questionlist/',)
+      if(response.data.questions){
+        this.filteredQuestions = response.data.questions
+      }
+  
+    },
+    
+    async filterQuestion(params){
+        
+    
+        const response = await axios.get('question/questionlist/',{params})
+        if(response.data.questions){
+          this.filteredQuestions = response.data.questions
+        }
+        else{
+            
+        }
+        if(this.filteredQuestions.length == 0){
+            this.showDropdown = false;
+            this.addEnable = true;
+        }
+    
+        },
+
+
+
+
+        handleFileUpload(event) {
+      this.file = event.target.files[0];
+    },
+    async uploadFile() {
+      if (!this.file) {
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('csv_file', this.file);
+
+      try {
+        const response = await axios.post('upload_csv/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          onUploadProgress: progressEvent => {
+            this.uploadProgress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          },
+        });
+
+        if (response.status === 200) {
+          this.uploadStatus = 'success';
+          this.uploadMessage = response.data.message;
+
+        } else {
+          this.uploadStatus = 'error';
+        }
+      } catch (error) {
+        console.error(error);
+        this.uploadStatus = 'error';
+      }
+    },
+    },
+   
+    mounted(){
+        console.log("mounted");
+        this.getQuestion();
+        // initialize time
+        this.start_time = new Date().getTime();
+    }
+    });
+    
+    </script>
+     
+
+
+{% endblock javascript %}
