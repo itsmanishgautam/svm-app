@@ -280,6 +280,22 @@ def questionstatics(request):
     # return HttpResponse('lo')
     return redirect('dashboard:questionpool')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @login_required()
 def question_add(request,test_id):
     test = Test.objects.get(id=test_id)
@@ -428,6 +444,7 @@ def download_csv(request):
     # ... add more rows as needed
 
     return response
+
 class UploadCsv(APIView):
     parser_class = (FileUploadParser,)
 
